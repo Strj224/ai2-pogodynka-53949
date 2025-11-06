@@ -1,0 +1,52 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Locations{% endblock %}
+
+{% block body %}
+    <div class="container mt-4">
+        <h1>Locations</h1>
+
+        <a href="{{ path('app_location_new') }}" class="btn btn-success mb-3">Create New Location</a>
+        <a href="{{ path('app_measurement_index') }}" class="btn btn-primary mb-3">Go to Measurements</a>
+
+        <div class="table-responsive">
+            <table class="table table-striped table-hover">
+                <thead class="table-dark">
+                <tr>
+                    <th>ID</th>
+                    <th>City</th>
+                    <th>Country</th>
+                    <th>Latitude</th>
+                    <th>Longitude</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for location in locations %}
+                    <tr>
+                        <td>{{ location.id }}</td>
+                        <td>{{ location.city }}</td>
+                        <td>{{ location.country }}</td>
+                        <td>{{ location.latitude }}</td>
+                        <td>{{ location.longitude }}</td>
+                        <td>
+                            {# Jeśli chcesz stronę show, upewnij się, że istnieje trasa app_location_show #}
+                            {# <a class="btn btn-sm btn-primary" href="{{ path('app_location_show', {'id': location.id}) }}">Show</a> #}
+                            <a class="btn btn-sm btn-secondary" href="{{ path('app_location_edit', {'id': location.id}) }}">Edit</a>
+
+                            <form method="post" action="{{ path('app_location_delete', {'id': location.id}) }}" style="display:inline-block;" onsubmit="return confirm('Are you sure?');">
+                                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ location.id) }}">
+                                <button class="btn btn-sm btn-danger">Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="6" class="text-center">No locations found</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}

@@ -24,6 +24,15 @@ class Measurement
     #[ORM\Column(type: Types::DECIMAL, precision: 3, scale: 0)]
     private ?string $celsius = null;
 
+    #[ORM\Column]
+    private ?int $precipitationChance = null;
+
+    #[ORM\Column]
+    private ?int $cloudiness = null;
+
+    #[ORM\Column]
+    private ?int $pressure = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -61,6 +70,42 @@ class Measurement
     public function setCelsius(string $celsius): static
     {
         $this->celsius = $celsius;
+
+        return $this;
+    }
+
+    public function getPrecipitationChance(): ?int
+    {
+        return $this->precipitationChance;
+    }
+
+    public function setPrecipitationChance(int $precipitationChance): static
+    {
+        $this->precipitationChance = $precipitationChance;
+
+        return $this;
+    }
+
+    public function getCloudiness(): ?int
+    {
+        return $this->cloudiness;
+    }
+
+    public function setCloudiness(int $cloudiness): static
+    {
+        $this->cloudiness = $cloudiness;
+
+        return $this;
+    }
+
+    public function getPressure(): ?int
+    {
+        return $this->pressure;
+    }
+
+    public function setPressure(int $pressure): static
+    {
+        $this->pressure = $pressure;
 
         return $this;
     }

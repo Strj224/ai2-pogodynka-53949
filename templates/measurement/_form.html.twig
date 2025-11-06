@@ -1,0 +1,39 @@
+{{ form_start(form) }}
+<div class="mb-3">
+    {{ form_label(form.location) }}
+    {{ form_widget(form.location) }}
+    {{ form_errors(form.location) }}
+</div>
+
+<div class="mb-3">
+    {{ form_label(form.date) }}
+    {{ form_widget(form.date) }}
+    {{ form_errors(form.date) }}
+</div>
+
+<div class="mb-3">
+    {{ form_label(form.celsius) }}
+    {{ form_widget(form.celsius) }}
+    {{ form_errors(form.celsius) }}
+</div>
+
+<div class="mb-3">
+    {{ form_label(form.precipitationChance) }}
+    {{ form_widget(form.precipitationChance) }}
+    {{ form_errors(form.precipitationChance) }}
+</div>
+
+<div class="mb-3">
+    {{ form_label(form.cloudiness) }}
+    {{ form_widget(form.cloudiness) }}
+    {{ form_errors(form.cloudiness) }}
+</div>
+
+<div class="mb-3">
+    {{ form_label(form.pressure) }}
+    {{ form_widget(form.pressure) }}
+    {{ form_errors(form.pressure) }}
+</div>
+
+<button class="btn btn-primary">{{ button_label|default('Save') }}</button>
+{{ form_end(form) }}

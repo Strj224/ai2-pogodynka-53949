@@ -1,0 +1,48 @@
+App\Entity\Measurement:
+    properties:
+        location:
+            - NotNull:
+                  groups: ['create', 'edit']
+
+        date:
+            - NotBlank:
+                  groups: ['create', 'edit']
+            - Type:
+                  type: DateTimeInterface
+                  groups: ['create', 'edit']
+            - LessThanOrEqual:
+                  value: 'today'
+                  message: 'Date cannot be in the future.'
+                  groups: ['create', 'edit']
+
+        celsius:
+            - NotBlank:
+                  groups: ['create', 'edit']
+            - Range:
+                  min: -100
+                  max: 100
+                  groups: ['create', 'edit']
+
+        precipitationChance:
+            - NotBlank:
+                  groups: ['create', 'edit']
+            - Range:
+                  min: 0
+                  max: 100
+                  groups: ['create', 'edit']
+
+        cloudiness:
+            - NotBlank:
+                  groups: ['create', 'edit']
+            - Range:
+                  min: 0
+                  max: 100
+                  groups: ['create', 'edit']
+
+        pressure:
+            - NotBlank:
+                  groups: ['create', 'edit']
+            - Range:
+                  min: 800
+                  max: 1200
+                  groups: ['create', 'edit']
