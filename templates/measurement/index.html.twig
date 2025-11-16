@@ -6,7 +6,10 @@
     <div class="container mt-4">
         <h1>Measurements</h1>
 
-        <a href="{{ path('app_measurement_new') }}" class="btn btn-success mb-3">Create New Measurement</a>
+        {% if is_granted('ROLE_MEASUREMENT_NEW') %}
+            <a href="{{ path('app_measurement_new') }}" class="btn btn-success mb-3">Create New Measurement</a>
+        {% endif %}
+
         <a href="{{ path('app_location_index') }}" class="btn btn-primary mb-3">Go to Locations</a>
 
         <div class="table-responsive">
@@ -32,12 +35,18 @@
                         <td>{{ measurement.cloudiness }}</td>
                         <td>{{ measurement.pressure }}</td>
                         <td>
-                            <a class="btn btn-sm btn-secondary" href="{{ path('app_measurement_edit', {'id': measurement.id}) }}">Edit</a>
-
-                            <form method="post" action="{{ path('app_measurement_delete', {'id': measurement.id}) }}" style="display:inline-block;" onsubmit="return confirm('Are you sure?');">
-                                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ measurement.id) }}">
-                                <button class="btn btn-sm btn-danger">Delete</button>
-                            </form>
+                            {% if is_granted('ROLE_MEASUREMENT_SHOW') %}
+                                <a class="btn btn-sm btn-primary" href="{{ path('app_measurement_show', {'id': measurement.id}) }}">Show</a>
+                            {% endif %}
+                            {% if is_granted('ROLE_MEASUREMENT_EDIT') %}
+                                <a class="btn btn-sm btn-secondary" href="{{ path('app_measurement_edit', {'id': measurement.id}) }}">Edit</a>
+                            {% endif %}
+                            {% if is_granted('ROLE_MEASUREMENT_DELETE') %}
+                                <form method="post" action="{{ path('app_measurement_delete', {'id': measurement.id}) }}" style="display:inline-block;" onsubmit="return confirm('Are you sure?');">
+                                    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ measurement.id) }}">
+                                    <button class="btn btn-sm btn-danger">Delete</button>
+                                </form>
+                            {% endif %}
                         </td>
                     </tr>
                 {% else %}
