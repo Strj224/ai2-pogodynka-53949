@@ -6,3 +6,7 @@ controllers:
 app_logout:
     path: /logout
     methods: GET
+app_text_input:
+    path: /text-input
+    controller: App\Controller\TextInputController::index
+

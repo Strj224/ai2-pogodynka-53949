@@ -9,16 +9,27 @@ security:
                 property: username
 
     firewalls:
+        dev:
+            pattern: ^/(_(profiler|wdt)|css|images|js)/
+            security: false
+
         main:
             lazy: true
             provider: app_user_provider
+
             form_login:
                 login_path: app_login
                 check_path: app_login
-                default_target_path: app_location_index
+
             logout:
                 path: app_logout
-                target: app_login
+
+            login_throttling:
+                max_attempts: 2
+                interval: '1 minute'
+
+    access_control:
+        - { path: ^/, roles: PUBLIC_ACCESS }
 
     role_hierarchy:
         ROLE_ADMIN:
@@ -38,6 +49,3 @@ security:
             - ROLE_LOCATION_SHOW
             - ROLE_MEASUREMENT_INDEX
             - ROLE_MEASUREMENT_SHOW
-
-    access_control:
-        - { path: /, roles: PUBLIC_ACCESS }
